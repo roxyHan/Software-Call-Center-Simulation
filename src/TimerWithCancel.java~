@@ -1,0 +1,28 @@
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class TimerWithCancel {
+    private static int currentCallCount = 0;
+    
+    public static void main(String[] args) {
+        
+        // Create the timer 
+        Timer callTimer = new Timer();
+        
+        // Create the task to run when we get a timer message
+        class CallCenter extends TimerTask {
+            public void run() {
+                
+                currentCallCount++;
+                // Set up stop condition
+                if (currentCallCount >= 12) {
+                    System.out.println("STOP all activities");
+                    callTimer.cancel();
+                }
+            }
+        }
+        // Start the timer running now, and pinging us every second
+        callTimer.schedule(new RoadTripTask(), 0, 1 * 1000);
+    }
+
+}
